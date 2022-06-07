@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 
 public class Player : MonoBehaviour
@@ -130,6 +131,7 @@ public class Player : MonoBehaviour
     {
         if(collision.gameObject.tag=="Treasure")    // When reaches the end of the level
         {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
             Destroy(collision.gameObject);
             
             AudioManager.Instance.ActivatingLevelWonSound();
