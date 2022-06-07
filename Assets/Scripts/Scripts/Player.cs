@@ -10,6 +10,11 @@ public class Player : MonoBehaviour
     #region PUBLIC VARIABLES
     public int playerSpeed;
     public int playerJumpForce;
+    public GameObject coinParticleEffect;
+    public GameObject powerParticleEffect;
+    public GameObject enemyDeathParticleEffect;
+
+
     #endregion
 
     #region PRIVATE VARIABLES
@@ -63,7 +68,11 @@ public class Player : MonoBehaviour
         {
             if (IsJump)               // PLayer in jumping state can kill the enemy
             {
+                AudioManager.Instance.ActivatingEnemyDeathSound();
+                GameObject temp = Instantiate(enemyDeathParticleEffect, collision.gameObject.transform.position, Quaternion.identity);
+
                 Destroy(collision.gameObject);
+                Destroy(temp, 0.2f);
             }
             else if(this.gameObject.transform.localScale.x>1f)  // If player have a power
             {
@@ -71,30 +80,48 @@ public class Player : MonoBehaviour
             }
             else  // If player doesn't have power and collided with enemy 
             {
+                AudioManager.Instance.ActivatingPlayerDeathSound();
                 Destroy(this.gameObject);
             }
 
         }
         if(collision.gameObject.layer==Constants.COIN_LAYER_NUMBER)
         {
+            AudioManager.Instance.ActivatingCoinSound();
+            GameObject temp = Instantiate(coinParticleEffect, collision.gameObject.transform.position, Quaternion.identity);
+
             Destroy(collision.gameObject);
+            Destroy(temp, 0.2f);
+
             ScoreManager.Instance.Score(2);
+
         }
         if (collision.gameObject.tag == "SuperPower")
         {
+            AudioManager.Instance.ActivatingPowerupSound();
+            GameObject temp = Instantiate(powerParticleEffect, collision.gameObject.transform.position, Quaternion.identity);
+
             Destroy(collision.gameObject);
+            Destroy(temp, 0.2f);
+            
            
             GameManager.Instance.ActivatingSuperPower(this.gameObject);
         }
         if (collision.gameObject.tag == "MegaPower")
         {
+            AudioManager.Instance.ActivatingPowerupSound();
+            GameObject temp = Instantiate(powerParticleEffect, collision.gameObject.transform.position, Quaternion.identity);
+
             Destroy(collision.gameObject);
+            Destroy(temp, 0.2f);
             GameManager.Instance.ActivatingMegaPower(this.gameObject);
 
         }
 
-        if(collision.gameObject.layer==Constants.WATER_LAYER_NUMBER)
+        if(collision.gameObject.layer==Constants.WATER_LAYER_NUMBER ||collision.gameObject.layer==Constants.FIRE_LAYER_NUMBER)
         {
+            AudioManager.Instance.ActivatingPlayerDeathSound();
+
             Destroy(this.gameObject);// Game end panel
         }
 
@@ -103,6 +130,9 @@ public class Player : MonoBehaviour
     {
         if(collision.gameObject.tag=="Treasure")    // When reaches the end of the level
         {
+            Destroy(collision.gameObject);
+            
+            AudioManager.Instance.ActivatingLevelWonSound();
             
         }
     }
@@ -120,6 +150,7 @@ public class Player : MonoBehaviour
             renderer.flipX = false;
         inputValue = value.x;
         rb.velocity = value * playerSpeed;
+       // transform.Translate(value * playerSpeed * Time.deltaTime);
     }
     void Jump()
     {

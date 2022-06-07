@@ -38,7 +38,7 @@ public class Enemy : MonoBehaviour
     IEnumerator Wander(Vector3 targetPosition)
     {
         
-        while (Vector3.Distance(transform.position,targetPosition)>1f)
+        while (Vector3.Distance(transform.position,targetPosition)>2f)
         {
             transform.position = Vector2.MoveTowards(transform.position, targetPosition, 3f * Time.deltaTime);
             yield return null;

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1966344355383866754}
   - component: {fileID: 1966344355383866757}
   - component: {fileID: 1966344355383866756}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: BatEnemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}

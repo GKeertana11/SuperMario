@@ -8,4 +8,5 @@ public class Constants
     public const int ENEMY_LAYER_NUMBER = 7;
     public const int COIN_LAYER_NUMBER = 8;
     public const int WATER_LAYER_NUMBER = 4;
+    public const int FIRE_LAYER_NUMBER = 9;
 }

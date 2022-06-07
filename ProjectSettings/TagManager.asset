@@ -8,17 +8,18 @@ TagManager:
   - MegaPower
   - Treasure
   - Flag
+  - FxTemporaire
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Player
   - Water
   - UI
   - Ground
   - Enemy
   - Coin
-  - 
+  - Fire
   - 
   - 
   - 
